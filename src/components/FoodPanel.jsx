@@ -21,7 +21,7 @@ export default function FoodPanel({ foods, customMeals, logs, onAdd, onSaveDirec
   const [saveAsMeal, setSaveAsMeal] = useState(false)
 
   useEffect(() => {
-    if (searchRef.current && activeCategory !== '⚡ Quick Add') {
+    if (searchRef.current && activeCategory !== 'Quick Add') {
       searchRef.current.focus()
     }
   }, [activeCategory])
@@ -315,7 +315,7 @@ export default function FoodPanel({ foods, customMeals, logs, onAdd, onSaveDirec
 
         <div className="section-label">Add Food</div>
 
-        {activeCategory !== '⚡ Quick Add' && (
+        {activeCategory !== 'Quick Add' && (
           <div className="search-box">
             <span className="search-icon">🔍</span>
             <input
@@ -362,7 +362,7 @@ export default function FoodPanel({ foods, customMeals, logs, onAdd, onSaveDirec
           </div>
         )}
 
-        {activeCategory === '⚡ Quick Add' ? (
+        {activeCategory === 'Quick Add' ? (
           <form className="quick-add-form" onSubmit={handleQuickAdd}>
             <div className="goal-field">
               <label>Food Name</label>
