@@ -5,7 +5,7 @@ import DailyLog from './components/DailyLog'
 import FoodPanel from './components/FoodPanel'
 import Toast from './components/Toast'
 import Auth from './components/Auth'
-import { supabase } from './supabase'
+import { getSupabase } from './supabase'
 import './index.css'
 
 const STORAGE_KEY = 'dietapp_logs'
@@ -92,6 +92,7 @@ function saveMeals(meals) {
 }
 
 export default function App() {
+  const supabase = getSupabase()
   const [currentDate, setCurrentDate] = useState(new Date())
   const [logs, setLogs] = useState(loadLogs)
   const [goals, setGoals] = useState(loadGoals)

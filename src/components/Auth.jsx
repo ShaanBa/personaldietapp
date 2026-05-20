@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { supabase } from '../supabase'
+import { getSupabase } from '../supabase'
 
 export default function Auth({ onClose }) {
+  const supabase = getSupabase()
   const [isSignUp, setIsSignUp] = useState(false)
   const [useMagicLink, setUseMagicLink] = useState(false)
   const [email, setEmail] = useState('')
