@@ -118,11 +118,11 @@ export default function FoodPanel({ foods, customMeals, logs, onAdd, onClose }) 
   }, [foods, allItems, recentItems, customMeals])
 
   const filteredItems = useMemo(() => {
-    if (activeCategory === '🕒 Recent') return recentItems
-    if (activeCategory === '🍱 Custom Meals') {
+    if (activeCategory === 'Recent') return recentItems
+    if (activeCategory === 'Custom Meals') {
       return allItems.filter((i) => i.category === 'Custom Meals')
     }
-    if (activeCategory === '⚡ Quick Add') return []
+    if (activeCategory === 'Quick Add') return []
 
     // Hide Custom Meals from the standard grid lists
     let items = allItems.filter((i) => i.category !== 'Custom Meals')
@@ -335,7 +335,7 @@ export default function FoodPanel({ foods, customMeals, logs, onAdd, onClose }) 
                   setActiveCategory(
                     name === 'All'
                       ? 'All'
-                      : name.replace(/^. /, '')
+                      : name.substring(name.indexOf(' ') + 1)
                   )
                 }
               >
