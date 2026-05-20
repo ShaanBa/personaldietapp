@@ -1,0 +1,212 @@
+[
+  {
+    "category": "Poultry",
+    "productName": "Country Pride Chicken Breast Tenders, Fritter Style",
+    "estimatedServingSize": "1 piece (approx. 2 oz or 56g)",
+    "calories": 135,
+    "macronutrients": {
+      "totalFat_g": 5.5,
+      "saturatedFat_g": 1.0,
+      "transFat_g": 0.0,
+      "totalCarbohydrate_g": 13.5,
+      "dietaryFiber_g": 0.5,
+      "totalSugars_g": 0.0,
+      "addedSugars_g": 0.0,
+      "protein_g": 8.5
+    },
+    "micronutrients": {
+      "cholesterol_mg": 22.5,
+      "sodium_mg": 445.0,
+      "vitaminD_mcg": 0.0,
+      "calcium_mg": 5.0,
+      "iron_mg": 0.35,
+      "potassium_mg": 120.0
+    },
+    "sourceData": "Calculated by halving the official 4 oz (112g) serving size from the packaging.",
+    "disclaimer": "Values are estimated. Actual piece sizes and exact nutritional content per tender will naturally vary."
+  },
+  {
+    "category": "Poultry",
+    "productName": "Country Pride Tempura Nuggets",
+    "estimatedServingSize": "1 piece (approx. 0.8 oz or 22.4g)",
+    "calories": 60,
+    "macronutrients": {
+      "totalFat_g": 3.8,
+      "saturatedFat_g": 0.9,
+      "transFat_g": 0.0,
+      "totalCarbohydrate_g": 3.8,
+      "dietaryFiber_g": 0.2,
+      "totalSugars_g": 0.0,
+      "addedSugars_g": 0.0,
+      "protein_g": 2.6
+    },
+    "micronutrients": {
+      "cholesterol_mg": 9.0,
+      "sodium_mg": 100.0,
+      "vitaminD_mcg": 0.08,
+      "calcium_mg": 2.0,
+      "iron_mg": 0.12,
+      "potassium_mg": 40.0
+    },
+    "sourceData": "Calculated by dividing the official 4 oz (112g) serving size by an estimated 5 pieces per serving.",
+    "disclaimer": "Values are estimated. Because serving sizes are determined by weight, actual piece sizes and exact nutritional content per nugget will naturally vary."
+  },
+  {
+    "category": "Bakery",
+    "productName": "Punjabi-Style Whole Wheat Roti, Lightly Buttered",
+    "estimatedServingSize": "1 piece (approx. 42.5g)",
+    "calories": 135,
+    "macronutrients": {
+      "totalFat_g": 3.5,
+      "saturatedFat_g": 1.5,
+      "transFat_g": 0.0,
+      "totalCarbohydrate_g": 22.0,
+      "dietaryFiber_g": 3.5,
+      "totalSugars_g": 0.5,
+      "addedSugars_g": 0.0,
+      "protein_g": 4.0
+    },
+    "micronutrients": {
+      "cholesterol_mg": 7.0,
+      "sodium_mg": 10.0,
+      "vitaminD_mcg": 0.0,
+      "calcium_mg": 12.0,
+      "iron_mg": 1.5,
+      "potassium_mg": 110.0
+    },
+    "sourceData": "Calculated using USDA standard reference data for whole wheat flatbread (40g) combined with 1/2 tsp of unsalted butter/ghee (2.5g).",
+    "disclaimer": "Values are estimated. Actual nutritional content will naturally vary based on the specific brand of flour, the exact diameter and thickness of the roti, and the precise amount of butter or ghee applied."
+  },
+  {
+    "category": "Condiments",
+    "productName": "Standard Full-Fat Mayonnaise",
+    "estimatedServingSize": "1 Tablespoon (approx. 14g)",
+    "calories": 90,
+    "macronutrients": {
+      "totalFat_g": 10.0,
+      "saturatedFat_g": 1.5,
+      "transFat_g": 0.0,
+      "totalCarbohydrate_g": 0.0,
+      "dietaryFiber_g": 0.0,
+      "totalSugars_g": 0.0,
+      "addedSugars_g": 0.0,
+      "protein_g": 0.0
+    },
+    "micronutrients": {
+      "cholesterol_mg": 5.0,
+      "sodium_mg": 90.0,
+      "vitaminD_mcg": 0.0,
+      "calcium_mg": 0.0,
+      "iron_mg": 0.0,
+      "potassium_mg": 0.0
+    },
+    "sourceData": "Calculated using average nutritional values from standard commercial, full-fat mayonnaise brands.",
+    "disclaimer": "Values are estimated. Nutritional content may vary slightly by brand, and using light, olive oil, or vegan variations will significantly alter the macros."
+  },
+  {
+    "category": "Poultry",
+    "productName": "Tyson Breaded Chicken Patty",
+    "estimatedServingSize": "1 piece (76g)",
+    "calories": 200,
+    "macronutrients": {
+      "totalFat_g": 13.0,
+      "saturatedFat_g": 3.0,
+      "transFat_g": 0.0,
+      "totalCarbohydrate_g": 10.0,
+      "dietaryFiber_g": 0.0,
+      "totalSugars_g": 0.0,
+      "addedSugars_g": 0.0,
+      "protein_g": 10.0
+    },
+    "micronutrients": {
+      "cholesterol_mg": 35.0,
+      "sodium_mg": 380.0,
+      "vitaminD_mcg": 0.0,
+      "calcium_mg": 0.0,
+      "iron_mg": 0.5,
+      "potassium_mg": 160.0
+    },
+    "sourceData": "Extracted directly from the provided Tyson nutrition label for a 1-piece serving.",
+    "disclaimer": "Values reflect the exact nutritional information printed on the packaging for one 76g chicken patty."
+  },
+  {
+    "category": "Bakery",
+    "productName": "Ball Park White Burger Buns",
+    "estimatedServingSize": "1 bun (53g)",
+    "calories": 150,
+    "macronutrients": {
+      "totalFat_g": 2.0,
+      "saturatedFat_g": 0.0,
+      "transFat_g": 0.0,
+      "totalCarbohydrate_g": 28.0,
+      "dietaryFiber_g": 2.0,
+      "totalSugars_g": 4.0,
+      "addedSugars_g": 4.0,
+      "protein_g": 4.0
+    },
+    "micronutrients": {
+      "cholesterol_mg": 0.0,
+      "sodium_mg": 280.0,
+      "vitaminD_mcg": 0.0,
+      "calcium_mg": 50.0,
+      "iron_mg": 1.5,
+      "potassium_mg": 50.0
+    },
+    "sourceData": "Extracted directly from the provided Ball Park nutrition label for a 1-bun serving.",
+    "disclaimer": "Values reflect the exact nutritional information printed on the packaging for one 53g hamburger bun."
+  },
+  {
+    "productName": "Mom's Punjabi Sabji (Generic, Oily)",
+    "estimatedServingSize": "1 cup (approx. 200g)",
+    "calories": 350,
+    "macronutrients": {
+      "totalFat_g": 30.0,
+      "saturatedFat_g": 5.0,
+      "transFat_g": 0.0,
+      "totalCarbohydrate_g": 15.0,
+      "dietaryFiber_g": 6.0,
+      "totalSugars_g": 4.0,
+      "addedSugars_g": 0.0,
+      "protein_g": 5.0
+    },
+    "micronutrients": {
+      "cholesterol_mg": 0.0,
+      "sodium_mg": 450.0,
+      "vitaminD_mcg": 0.0,
+      "calcium_mg": 40.0,
+      "iron_mg": 1.5,
+      "potassium_mg": 300.0
+    },
+    "category": "Home Cooked",
+    "emoji": "🍲",
+    "sourceData": "Overestimated baseline for a vegetable-based Indian dish heavy in cooking oil/ghee.",
+    "disclaimer": "Intentionally overestimated for safer tracking. Assumes 2+ tbsp of oil/ghee (270 cals) per serving plus base vegetables."
+  },
+  {
+    "productName": "Classic Oreo Cookie",
+    "estimatedServingSize": "1 cookie (approx. 11.3g)",
+    "calories": 53,
+    "macronutrients": {
+      "totalFat_g": 2.3,
+      "saturatedFat_g": 0.7,
+      "transFat_g": 0.0,
+      "totalCarbohydrate_g": 8.3,
+      "dietaryFiber_g": 0.3,
+      "totalSugars_g": 4.7,
+      "addedSugars_g": 4.7,
+      "protein_g": 0.3
+    },
+    "micronutrients": {
+      "cholesterol_mg": 0.0,
+      "sodium_mg": 45.0,
+      "vitaminD_mcg": 0.0,
+      "calcium_mg": 3.3,
+      "iron_mg": 0.6,
+      "potassium_mg": 16.7
+    },
+    "category": "Snacks",
+    "emoji": "🍪",
+    "sourceData": "Calculated by dividing the official Nabisco 3-cookie (34g) serving size by 3.",
+    "disclaimer": "Values are calculated for a single classic Oreo cookie. Double Stuf, Mega Stuf, or flavored variations will have different macros."
+  }
+]
