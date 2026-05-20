@@ -212,6 +212,50 @@ export default function App() {
     return () => clearTimeout(timer)
   }, [logs, goals, waterLogs, customMeals, user, isDataLoaded])
 
+  // Auto-sync: pull latest data when tab becomes visible or every 30s
+  useEffect(() => {
+    if (!user || !supabase) return
+
+    const pullLatest = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('user_data')
+          .select('logs, goals, water, meals, updated_at')
+          .eq('id', user.id)
+          .maybeSingle()
+
+        if (error || !data) return
+
+        setLogs(prev => ({ ...prev, ...data.logs }))
+        setWaterLogs(prev => ({ ...prev, ...data.water }))
+        setGoals(prev => ({ ...prev, ...data.goals }))
+        setCustomMeals(prev => {
+          const mealMap = new Map()
+          prev.forEach(m => mealMap.set(m.id, m))
+          const cloudMeals = data.meals || []
+          cloudMeals.forEach(m => mealMap.set(m.id, m))
+          return Array.from(mealMap.values())
+        })
+      } catch (err) {
+        console.error('Error pulling latest data:', err)
+      }
+    }
+
+    const handleVisibility = () => {
+      if (document.visibilityState === 'visible') {
+        pullLatest()
+      }
+    }
+
+    document.addEventListener('visibilitychange', handleVisibility)
+    const interval = setInterval(pullLatest, 30000)
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibility)
+      clearInterval(interval)
+    }
+  }, [user, supabase])
+
   const handleSignOut = async () => {
     if (window.confirm('Are you sure you want to sign out? Your local data will remain, but cloud syncing will stop.')) {
       await supabase.auth.signOut()
