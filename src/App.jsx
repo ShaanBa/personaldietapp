@@ -4,6 +4,8 @@ import Dashboard from './components/Dashboard'
 import DailyLog from './components/DailyLog'
 import FoodPanel from './components/FoodPanel'
 import Toast from './components/Toast'
+import Auth from './components/Auth'
+import { supabase } from './supabase'
 import './index.css'
 
 const STORAGE_KEY = 'dietapp_logs'
@@ -99,11 +101,128 @@ export default function App() {
   const [showPanel, setShowPanel] = useState(false)
   const [toast, setToast] = useState(null)
 
+  const [user, setUser] = useState(null)
+  const [showAuthModal, setShowAuthModal] = useState(false)
+  const [isDataLoaded, setIsDataLoaded] = useState(false)
+
   const dateKey = getDateKey(currentDate)
   const todayEntries = logs[dateKey] || []
   const todayWater = waterLogs[dateKey] || 0
 
-  // Persist logs
+  // Listen to auth state changes
+  useEffect(() => {
+    if (!supabase) {
+      setIsDataLoaded(true)
+      return
+    }
+
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null)
+      if (!session) setIsDataLoaded(true)
+    })
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      const currentUser = session?.user ?? null
+      setUser(currentUser)
+      if (!session) {
+        setIsDataLoaded(true)
+      }
+    })
+
+    return () => subscription.unsubscribe()
+  }, [])
+
+  // Sync function
+  const fetchAndSyncUserData = useCallback(async (userId) => {
+    try {
+      const { data, error } = await supabase
+        .from('user_data')
+        .select('*')
+        .eq('id', userId)
+        .maybeSingle()
+
+      if (error) throw error
+
+      if (data) {
+        // Record exists in cloud! Sync to local
+        setLogs((localLogs) => ({ ...localLogs, ...data.logs }))
+        setWaterLogs((localWater) => ({ ...localWater, ...data.water }))
+        setGoals((localGoals) => ({ ...localGoals, ...data.goals }))
+        setCustomMeals((localMeals) => {
+          const mealMap = new Map()
+          localMeals.forEach(m => mealMap.set(m.id, m))
+          const cloudMeals = data.meals || []
+          cloudMeals.forEach(m => mealMap.set(m.id, m))
+          return Array.from(mealMap.values())
+        })
+      } else {
+        // No record exists in cloud! (First time login).
+        // Upload our current local storage data
+        const { error: insertError } = await supabase
+          .from('user_data')
+          .insert({
+            id: userId,
+            logs: loadLogs(),
+            goals: loadGoals(),
+            water: loadWater(),
+            meals: loadMeals(),
+            updated_at: new Date().toISOString()
+          })
+        if (insertError) throw insertError
+      }
+    } catch (err) {
+      console.error('Error syncing user data:', err)
+    } finally {
+      setIsDataLoaded(true)
+    }
+  }, [])
+
+  // Fetch data on login
+  useEffect(() => {
+    if (user) {
+      setIsDataLoaded(false)
+      fetchAndSyncUserData(user.id)
+    } else {
+      setIsDataLoaded(true)
+    }
+  }, [user, fetchAndSyncUserData])
+
+  // Upload changes to Supabase (debounced)
+  useEffect(() => {
+    if (!user || !supabase || !isDataLoaded) return
+
+    const timer = setTimeout(async () => {
+      try {
+        await supabase
+          .from('user_data')
+          .update({
+            logs,
+            goals,
+            water: waterLogs,
+            meals: customMeals,
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', user.id)
+      } catch (err) {
+        console.error('Error uploading user data:', err)
+      }
+    }, 1000)
+
+    return () => clearTimeout(timer)
+  }, [logs, goals, waterLogs, customMeals, user, isDataLoaded])
+
+  const handleSignOut = async () => {
+    if (window.confirm('Are you sure you want to sign out? Your local data will remain, but cloud syncing will stop.')) {
+      await supabase.auth.signOut()
+      // Reload local storage state
+      setLogs(loadLogs())
+      setGoals(loadGoals())
+      setWaterLogs(loadWater())
+      setCustomMeals(loadMeals())
+    }
+  }
+
+  // Persist logs local backup
   useEffect(() => {
     saveLogs(logs)
   }, [logs])
@@ -307,7 +426,16 @@ export default function App() {
   return (
     <div className="app-container">
       <header className="app-header">
-        <h1>NutriTrack</h1>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <h1>NutriTrack</h1>
+          <button 
+            onClick={user ? handleSignOut : () => setShowAuthModal(true)} 
+            className={`sync-status-btn ${user ? 'signed-in' : ''}`}
+            title={user ? `Signed in as ${user.email}. Click to sign out.` : 'Click to sign in and sync across devices.'}
+          >
+            {user ? '👤' : '☁️'}
+          </button>
+        </div>
         <div className="date-nav">
           <button onClick={() => navigateDate(-1)} aria-label="Previous day">
             ‹
@@ -367,6 +495,10 @@ export default function App() {
           onSaveDirectCustomMeal={addDirectCustomMeal}
           onClose={() => setShowPanel(false)}
         />
+      )}
+
+      {showAuthModal && (
+        <Auth onClose={() => setShowAuthModal(false)} />
       )}
 
       <Toast message={toast} />
