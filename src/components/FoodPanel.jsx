@@ -1,6 +1,6 @@
 import { useState, useMemo, useRef, useEffect } from 'react'
 
-export default function FoodPanel({ foods, customMeals, logs, onAdd, onClose }) {
+export default function FoodPanel({ foods, customMeals, logs, onAdd, onSaveDirectCustomMeal, onClose }) {
   const [search, setSearch] = useState('')
   const [activeCategory, setActiveCategory] = useState('All')
   const [qtyFood, setQtyFood] = useState(null)
@@ -18,6 +18,7 @@ export default function FoodPanel({ foods, customMeals, logs, onAdd, onClose }) 
   const [quickPro, setQuickPro] = useState('')
   const [quickCarbs, setQuickCarbs] = useState('')
   const [quickFats, setQuickFats] = useState('')
+  const [saveAsMeal, setSaveAsMeal] = useState(false)
 
   useEffect(() => {
     if (searchRef.current && activeCategory !== '⚡ Quick Add') {
@@ -176,11 +177,27 @@ export default function FoodPanel({ foods, customMeals, logs, onAdd, onClose }) 
       fats: parseFloat(quickFats) || 0,
     }
     onAdd(food, 1)
+    if (saveAsMeal && onSaveDirectCustomMeal) {
+      onSaveDirectCustomMeal({
+        id: `meal_${Date.now()}`,
+        productName: quickName.trim() || 'Quick Add Item',
+        estimatedServingSize: '1 serving',
+        calories: cals,
+        macronutrients: {
+          protein_g: parseFloat(quickPro) || 0,
+          totalCarbohydrate_g: parseFloat(quickCarbs) || 0,
+          totalFat_g: parseFloat(quickFats) || 0,
+        },
+        emoji: '🍱',
+        isMeal: true
+      })
+    }
     setQuickName('')
     setQuickCals('')
     setQuickPro('')
     setQuickCarbs('')
     setQuickFats('')
+    setSaveAsMeal(false)
     onClose()
   }
 
@@ -401,6 +418,18 @@ export default function FoodPanel({ foods, customMeals, logs, onAdd, onClose }) 
                   onChange={(e) => setQuickFats(e.target.value)}
                 />
               </div>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', margin: '12px 0 0 0' }}>
+              <input
+                type="checkbox"
+                id="saveAsMeal"
+                checked={saveAsMeal}
+                onChange={(e) => setSaveAsMeal(e.target.checked)}
+                style={{ width: 'auto', margin: 0, cursor: 'pointer' }}
+              />
+              <label htmlFor="saveAsMeal" style={{ fontSize: '0.85rem', color: 'var(--text-muted)', cursor: 'pointer', userSelect: 'none' }}>
+                Save as a reusable Custom Meal
+              </label>
             </div>
             <button type="submit" className="qty-add-btn" style={{ marginTop: '20px' }}>
               Add Quick Food Entry

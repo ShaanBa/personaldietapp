@@ -279,6 +279,13 @@ export default function App() {
     setTimeout(() => setToast(null), 2000)
   }, [todayEntries])
 
+  const addDirectCustomMeal = useCallback((meal) => {
+    setCustomMeals((prev) => [...prev, meal])
+    setToast(`Saved custom meal: ${meal.productName}`)
+    setTimeout(() => setToast(null), 2000)
+  }, [])
+
+
   const navigateDate = (dir) => {
     setCurrentDate((prev) => {
       const d = new Date(prev)
@@ -357,6 +364,7 @@ export default function App() {
           customMeals={customMeals}
           logs={logs}
           onAdd={addFood}
+          onSaveDirectCustomMeal={addDirectCustomMeal}
           onClose={() => setShowPanel(false)}
         />
       )}
